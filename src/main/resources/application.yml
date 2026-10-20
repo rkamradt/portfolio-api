@@ -1,0 +1,29 @@
+spring:
+  session:
+    store-type: redis
+    redis:
+      flush-mode: on-save
+      namespace: "${SERVICE_NAME:portfolio}-auth:sessions"
+    timeout: 86400s
+  data:
+    redis:
+      host: "${REDIS_HOST:redis.redis.svc.cluster.local}"
+      port: "${REDIS_PORT:6379}"
+    mongodb:
+      uri: "${MONGODB_URI:mongodb://mongodb.mongodb.svc.cluster.local:27017/portfolio-auth}"
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+
+logging:
+  level:
+    com.rkamradt: INFO
